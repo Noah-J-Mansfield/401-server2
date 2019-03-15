@@ -1,0 +1,36 @@
+
+<section id="page1" data-role="page">
+  <header data-role="header">
+    <h1>Library</h1>
+    <a href="mobile_search" data-ajax="false">Search</a>
+  </header>
+  <div class="content" data-role="content">
+    <ul data-role="listview">
+      {{#each items}}
+      <li><a href="#b{{this.id}}">{{this.title}}</a></li>      
+      {{/each}}
+    </ul>
+  </div>
+  
+  <footer data-role="footer">
+     <a data-icon="arrow-l" data-role="button" href="mobile_searchresult?search={{search}}&start={{prev}}" data-ajax="false">prev</a>
+     <a data-icon="arrow-r" data-role="button" href="mobile_searchresult?search={{search}}&start={{next}}" data-ajax="false">next</a>
+  </footer>
+</section>
+
+
+{{#each items}}
+<section id="b{{this.id}}" data-role="page">
+  <header data-role="header">
+    <h1>Details</h1>
+  </header>
+  <div class="content" >
+    <table>
+      <tr><th>Call #:</th><td> {{this.callNo}}</td></tr>
+      <tr><th>Title:</th><td>{{this.title}}</td></tr>
+      <tr><th>Author:</th><td> {{this.author}}</td>
+     </table>
+  </div>
+
+</section>
+{{/each}}

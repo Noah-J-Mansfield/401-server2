@@ -1,0 +1,34 @@
+
+    <form method="get" action="search?start=0" >
+
+      <P>Search by Title:
+        <input name="txtTitle" type="text"  />&nbsp;<input type="submit" value="Search" />&nbsp;
+      </P>
+      {{#if error.t}}
+        <P>{{ error.mesg }}</P>
+      {{else}}
+        <P><a href="search?start={{prev}}&txtTitle={{query}}">&lt;&lt;&nbsp;Prev</a> Page {{page}} of {{maxpage}} ({{count}} matches) <a href="search?start={{next}}&txtTitle={{query}}">Next&nbsp;&gt;&gt;</a></P>
+				
+			<P><table id="tblResults" cellspacing="0" cellpadding="5" align="Left" bordercolor="Gray" border="0">
+			<tr>
+				<td align="Left" valign="Top" width="25%"><b>Author</b></td><td align="Left" valign="Top" width="75%"><b>Title</b></td>
+			{{#each items}}
+			</tr><tr>
+				<td align="Left" valign="Top">{{this.author}}</td><td align="Left" valign="Top"><a href='details?book_id={{this.id}}' alt=''>{{this.title}}</a></td>
+			</tr><tr>
+			{{/each}}
+				
+
+				
+      {{/if}}
+    
+     
+</table>
+      <br>
+      <br>
+      <P>&nbsp;</P>
+      <P>&nbsp;</P>
+
+      <P>&nbsp;</P>
+      <P>&nbsp;</P>
+    </form>

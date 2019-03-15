@@ -1,0 +1,56 @@
+{{#with book}}
+<form method="post" >
+      <table cellSpacing="5" cellPadding="5" width="100%" align="left">
+        <tr>
+          <td vAlign="top" align="right" width="200"><b>Title:</b></td>
+          <td vAlign="top"><textarea name="Title" >{{title}}</textarea></td>
+        </tr>
+        <tr>
+          <td vAlign="top" align="right"><b>Author:</b></td>
+
+          <td vAlign="top"><input name="Author" type="text" value="{{author}}"  /></td>
+        </tr>
+        <tr>
+          <td vAlign="top" align="right"><b>Additional Author:</b></td>
+          <td vAlign="top"><input name="AddAuthor" type="text"  value="{{addAuthor}}"/></td>
+        </tr>
+        <tr>
+          <td vAlign="top" align="right"><b>Call Number:</b></td>
+
+          <td vAlign="top"><input name="CallNo" type="text" value="{{callNo}}" /></td>
+        </tr>
+        <tr>
+          <td vAlign="top" align="right"><b>Publication Info:</b></td>
+          <td vAlign="top"><textarea name="Pub_Info" >{{pubInfo}}</textarea></td>
+        </tr>
+        <tr>
+          <td style="HEIGHT: 57px" vAlign="top" align="right"><b>Description:</b></td>
+
+          <td vAlign="top"><textarea name="Descript" >{{descript}}</textarea></td>
+        </tr>
+        <tr>
+          <td vAlign="top" align="right"><b>Series:</b></td>
+          <td vAlign="top"><input name="Series" type="text" id="tbSeries" /></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <input type="hidden" name="id" value="{{id}}" />
+          <input type="hidden" name="updateCount" value="{{updateCount}}" />
+          <td align="left"><input type="submit" value="Save"  />&nbsp;
+            <input type="submit" name="btnCancel" value="Cancel"  /></td>
+            {{/with}}
+          </tr>
+          <tr>
+            {{#if error.c}}<td align="left"> 
+      <a href='maintain?id={{book.id}}' alt=''>File has been updated by another user. click here to refresh</a>
+      </td>{{/if}}
+
+        {{#if error.v}}<td align="left"> 
+      <p>{{error.msg}}</p>
+      </td>{{/if}}
+
+        </tr>
+      </table>
+     
+    </form>
+    
