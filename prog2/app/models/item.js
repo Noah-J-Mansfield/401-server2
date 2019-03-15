@@ -20,9 +20,9 @@ Item.search = function (query,start,end,callback) {
         query = "%"+query+"%";
         let sql = "select * from items where title like ? order by title limit ?,?";
         sql = mysql.format(sql, [query, start,end]);
-        console.log(sql);
+        
         connection.query(sql, function (err, data) {
-            //console.log(data);
+            
             connection.release();              
             if (err) return callback(err);
 
@@ -48,9 +48,9 @@ Item.getid = function (query,callback) {
         let sql =  "select * from items where id = ?";
         
         sql = mysql.format(sql, [query]);
-        console.log(sql);
+       
         connection.query(sql, function (err, data) {
-            //console.log(data);
+            
             connection.release();              
             if (err) return callback(err);
 
@@ -75,15 +75,14 @@ Item.count = function (query,callback) {
 
         sql = mysql.format(sql, [query]);
 
-        console.log(sql);
+       
         connection.query(sql, function (err, data) {
-            //console.log(data);
+           
             connection.release();              
             if (err) return callback(err);
 
             if (data) {
-                console.log(data);
-                //console.log(data);
+                
                 callback(null, data);
             } else {
                 callback(null, null);
@@ -105,7 +104,7 @@ Item.update = function (values,query,callback) {
         for(let i = 0; i < k.length; i++)
         {
             var q = k[i]
-            console.log(q);
+           
             if(values[q])
             {
                 if(flag) sql+=",";
@@ -123,7 +122,7 @@ Item.update = function (values,query,callback) {
         sql= mysql.format(sql, [query.updateCount+1,query.id, query.updateCount]);
 
 
-        console.log(sql);
+    
         connection.query(sql, function (err, data) {
 
             connection.release();              

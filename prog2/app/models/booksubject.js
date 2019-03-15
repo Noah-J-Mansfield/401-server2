@@ -14,9 +14,9 @@ Subject.search = function (id,callback) {
         let sql = "select * from booksubjects where bookid = ?";
         
         sql = mysql.format(sql, [id]);
-        console.log(sql);
+      
         connection.query(sql, function (err, data) {
-            //console.log(data);
+       
             connection.release();              
             if (err) return callback(err);
             if(data){

@@ -35,13 +35,13 @@ valid = function(str)
 };
 
 router.get('/search', function(req,res,next){
-    console.log(Object.keys(req.query));
+    
     if(req.query.txtTitle){
     
     
         if(!valid(req.query.txtTitle))
         {
-            console.log("bad search");
+           
             res.render('search', {
                 layout: "index",
                 'error' : 
@@ -56,7 +56,7 @@ router.get('/search', function(req,res,next){
     let p = parseInt(req.query.start)|0;
     Item.search(req.query.txtTitle,p,10, function(error, result){
         if(error){
-        console.log(error);
+      
         res.render('search', {
             layout: "index",
             'error' :
@@ -68,7 +68,7 @@ router.get('/search', function(req,res,next){
         });
         }
         else{
-        //console.log(result);
+       
         Item.count(req.query.txtTitle, function(err, re){
 
             
@@ -131,14 +131,14 @@ router.get('/details', function(req, res, next)
         }
 
         else{
-        console.log(result);
+        
         Subject.search(req.query.book_id, function(err, re){
 
             if(err){
                 console.log(err);
                 return err;
             }
-            console.log(re.subject);
+         
             res.render('details', {
                 layout: "index",
                 "book":result,
@@ -237,9 +237,13 @@ router.post('/login',function(req,res,next){
         let temp = hash.SHA256(req.body.txtPassword).toString();
     users.search(req.body.txtUsername, temp, function(err,result)
     {
+        if(err)
+        {
+            console.log(err);
+            return;
+        }
         if(result)req.session.login = true;
-        console.log(req.session.login);
-        console.log(result);
+
         res.render('login', {
             layout:'index',
             login:req.session.login
@@ -258,8 +262,7 @@ router.get('/maintain', function(req,res,next)
             console.log(error);
             return;
         }
-        console.log("maintain");
-        console.log(result)
+
         res.render('maintain',{
             layout:"index",
             book:result
@@ -269,7 +272,7 @@ router.get('/maintain', function(req,res,next)
 
 router.post('/maintain', function(req,res,next)
 {
-    console.log(req.body);
+
     let b = req.body;
     
     
@@ -306,10 +309,16 @@ router.post('/maintain', function(req,res,next)
 
 
     Item.update(values,query, function(error, result){
+        
+        if(error)
+        {
+            console.log(error);
+            return;
+        }
+        
         if(result > 0)
         {
-            console.log("result");
-            console.log(result)
+        
             res.redirect('/details?book_id=' + encodeURI(b.id));
         }
         else

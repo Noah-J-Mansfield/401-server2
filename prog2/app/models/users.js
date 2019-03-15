@@ -14,9 +14,9 @@ users.search = function (username,password,callback) {
         let sql = "select * from users where username = ? and password = ?";
         
         sql = mysql.format(sql, [username,password]);
-        console.log(sql);
+      
         connection.query(sql, function (err, data) {
-            console.log(data);
+           
             connection.release();              
             if (err) return callback(err);
             if(data){
@@ -35,7 +35,7 @@ users.hash = function(callback)
         let sql = "select * from user";
         sql = 
         sql = mysql.format(sql, [username,password]);
-        console.log(sql);
+       
         connection.query(sql, function (err, data) {
           
             connection.query(sql, function(error, cla)
