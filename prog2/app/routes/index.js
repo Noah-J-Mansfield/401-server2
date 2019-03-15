@@ -5,6 +5,7 @@ var Item = require('../models/item');
 var Subject = require('../models/booksubject');
 var hash = require('crypto-js');
 /* GET home page. */
+//default returns search page
 router.get('/', function (req, res, next) {
     res.render('search', {
         layout: "index",
@@ -16,7 +17,8 @@ router.get('/', function (req, res, next) {
     });
 });
 
-
+//validate search input
+//takes a string and determine if any unwanted characters are present
 valid = function(str)
 {
     for(var i = 0; i < str.length; i++)
@@ -35,7 +37,7 @@ valid = function(str)
 };
 
 router.get('/search', function(req,res,next){
-    
+    //if any valid data
     if(req.query.txtTitle){
     
     
@@ -52,11 +54,11 @@ router.get('/search', function(req,res,next){
             });
             return;
         }
-    
+    //current page 
     let p = parseInt(req.query.start)|0;
     Item.search(req.query.txtTitle,p,10, function(error, result){
         if(error){
-      
+        
         res.render('search', {
             layout: "index",
             'error' :
@@ -117,6 +119,7 @@ else
     
 });
 
+//display details
 router.get('/details', function(req, res, next)
 {
     Item.getid(req.query.book_id,function(error, result){
@@ -153,6 +156,7 @@ router.get('/details', function(req, res, next)
 
 });
 
+//search results
 router.get('/mobile_searchresult', function(req,res,next)
 {
     if(req.query.search)
@@ -208,10 +212,12 @@ router.get('/mobile_searchresult', function(req,res,next)
     }
 });
 
+//search screen
 router.get('/mobile_search',function(req,res,next){
     res.render("mobile_search",{layout: "mobile_index"});
 });
 
+//load login page
 router.get("/login", function(req,res,next){
 
     
@@ -222,6 +228,7 @@ router.get("/login", function(req,res,next){
     });
 });
 
+//try and login
 router.post('/login',function(req,res,next){
     
     if(req.body.logout)
@@ -253,6 +260,7 @@ router.post('/login',function(req,res,next){
 }
 });
 
+//display edit file page
 router.get('/maintain', function(req,res,next)
 {
     Item.getid(req.query.id, function(error, result)
@@ -269,7 +277,7 @@ router.get('/maintain', function(req,res,next)
         });
     });
 });
-
+//edit a file
 router.post('/maintain', function(req,res,next)
 {
 

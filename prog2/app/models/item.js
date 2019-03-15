@@ -2,6 +2,9 @@
 
 var db = require('../config/db');
 var mysql = require('mysql');
+
+/// class to search items table
+
 function Item(id, callNo, author, title, pubInfo, descript, series, addAuthor, updateCount) {
     this.id = id;
     this.callNo = callNo;
@@ -14,6 +17,11 @@ function Item(id, callNo, author, title, pubInfo, descript, series, addAuthor, u
     this.updateCount = updateCount;
 }
 
+
+/// returns a list of entries with 'query' somewhere in the title
+/// query: string
+/// start: int
+/// end: int
 Item.search = function (query,start,end,callback) {
     db.pool.getConnection(function (err, connection) {
         if(err) return callback(err);
@@ -41,6 +49,8 @@ Item.search = function (query,start,end,callback) {
     });
 };
 
+/// returns a single item entry
+/// query: int
 Item.getid = function (query,callback) {
     db.pool.getConnection(function (err, connection) {
         if(err) return callback(err);
@@ -67,6 +77,9 @@ Item.getid = function (query,callback) {
         });
     });
 };
+
+/// returns the number of entries with 'query' in the title
+/// query: string
 Item.count = function (query,callback) {
     db.pool.getConnection(function (err, connection) {
         if(err) return callback(err);
@@ -91,9 +104,9 @@ Item.count = function (query,callback) {
     });
 };
 
-
-
-
+/// updates an entry in the items table if the updateNo is equal and return true else return false.
+/// values: object with column names as the keys
+/// query: object containing the id and updateNo
 Item.update = function (values,query,callback) {
     db.pool.getConnection(function (err, connection) {
         if(err) return callback(err);

@@ -30,6 +30,10 @@ app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: fals
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// creates a login session variable if none exists.
+// default: false
+// check if logged in
+// redirect non-logged in user away from maintain pages 
 app.use(function(req,res,next){
     let login = req.session.login;
     if(!login)
